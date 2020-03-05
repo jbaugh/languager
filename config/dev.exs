@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :languager, Languager.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "languager",
+  password: "123123",
   database: "languager_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,

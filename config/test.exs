@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :languager, Languager.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "languager",
+  password: "123123",
   database: "languager_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
