@@ -24,6 +24,11 @@ defmodule LanguagerWeb do
       import Plug.Conn
       import LanguagerWeb.Gettext
       alias LanguagerWeb.Router.Helpers, as: Routes
+
+      import LanguagerWeb.Helpers.Session
+      alias LanguagerWeb.Helpers.Session
+
+      plug LanguagerWeb.Plugs.LoadCurrentUser
     end
   end
 
@@ -42,6 +47,9 @@ defmodule LanguagerWeb do
       import LanguagerWeb.ErrorHelpers
       import LanguagerWeb.Gettext
       alias LanguagerWeb.Router.Helpers, as: Routes
+
+      import LanguagerWeb.Helpers.Session
+      alias LanguagerWeb.Helpers.Session
     end
   end
 

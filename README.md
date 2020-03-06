@@ -31,8 +31,7 @@ __Testing__
 
 
 
-mix phx.new carpedia --database mysql
-
+mix phx.new languager
 npm install postcss-loader tailwindcss --save-dev
 
 
