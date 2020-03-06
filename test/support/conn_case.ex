@@ -23,6 +23,8 @@ defmodule LanguagerWeb.ConnCase do
       use Phoenix.ConnTest
       alias LanguagerWeb.Router.Helpers, as: Routes
 
+      import Languager.TestHelpers
+
       # The default endpoint for testing
       @endpoint LanguagerWeb.Endpoint
     end

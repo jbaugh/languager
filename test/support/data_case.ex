@@ -24,6 +24,7 @@ defmodule Languager.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Languager.DataCase
+      import Languager.TestHelpers
     end
   end
 
