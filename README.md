@@ -1,20 +1,41 @@
 # Languager
 
-To start your Phoenix server:
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+__Requirements__
+- [Elixir](http://elixir-lang.org/)/[Mix](http://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html)/[Phoenix](http://www.phoenixframework.org/) ([Installation guide](http://www.phoenixframework.org/docs/installation))
+- [Node.js](https://nodejs.org/en/)/[npm](https://www.npmjs.com/) (Install using [nvm](https://github.com/creationix/nvm))
+- Database
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+__Initial Setup__
+  npm install (Gets npm dependencies)
+  mix deps.get (Gets Phoenix dependencies)
+  mix ecto.create (Sets up database)
+  mix ecto.migrate (Runs migrations)
+  mix phx.server (start server)
+  - Go to localhost:4000 (or whatever port is specified in dev.exs)
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+__Updating__
+  mix deps.get
+  mix deps.compile
+  mix ecto.migrate
+  mix phx.server
 
-## Learn more
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+
+__Testing__
+  MIX_ENV=test mix ecto.create
+  MIX_ENV=test mix ecto.migrate
+  MIX_ENV=test mix ecto.reset
+  mix test
+
+
+
+
+mix phx.new carpedia --database mysql
+
+npm install postcss-loader tailwindcss --save-dev
+
+
+
+mix phx.gen.context Accounts User users email:string:unique encrypted_password:string external_id:string:unique
+mix phx.gen.html Cars Car cars name:string make:string model:string year:string
