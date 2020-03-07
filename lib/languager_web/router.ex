@@ -7,6 +7,7 @@ defmodule LanguagerWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug LanguagerWeb.Plugs.LoadCurrentUser
   end
 
   pipeline :api do
@@ -15,6 +16,15 @@ defmodule LanguagerWeb.Router do
 
   scope "/", LanguagerWeb do
     pipe_through :browser
+
+    get "/logout", SessionController, :delete
+    get "/signout", SessionController, :delete
+    get "/login", SessionController, :new
+    get "/signin", SessionController, :new
+    resources "/sessions", SessionController, only: [:new, :create, :delete]
+
+    get "/signup", SignupController, :new
+    post "/signup", SignupController, :create
 
     get "/", PageController, :index
   end

@@ -31,10 +31,9 @@ __Testing__
 
 
 
+
 mix phx.new languager
 npm install postcss-loader tailwindcss --save-dev
 
 
-
 mix phx.gen.context Accounts User users email:string:unique encrypted_password:string external_id:string:unique
-mix phx.gen.html Cars Car cars name:string make:string model:string year:string

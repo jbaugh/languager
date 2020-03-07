@@ -1,0 +1,46 @@
+<div class="mx-auto max-w-sm">
+    <div class="py-10 text-center">
+        @include('logo', ['style' => 'max-width: 12rem;'])
+    </div>
+
+    <div class="bg-white rounded shadow">
+        <div class="border-b py-8 font-bold text-black text-center text-xl tracking-widest uppercase">
+            Sign Up
+        </div>
+
+        <%= form_for @changeset, Routes.signup_path(@conn, :create), [class: "bg-grey-lightest px-10 py-10"], fn f -> %>
+            <div class="mb-3">
+              <%= if @changeset.action do %>
+                <div class="text-danger">
+                  <p><%= gettext("Oops, something went wrong.") %></p>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="mb-3">
+                <%= text_input f, :email, class: "border w-full p-3 focus:outline-none focus:bg-white focus:border-gray-500", placeholder: gettext("Email") %>
+                <div class="text-danger">
+                  <%= error_tag f, :email %>
+                </div>
+            </div>
+            <div class="mb-6">
+                <%= password_input f, :password, class: "border w-full p-3 focus:outline-none focus:bg-white focus:border-gray-500", placeholder: "**************" %>
+                <div class="text-danger">
+                  <%= error_tag f, :password %>
+                </div>
+            </div>
+            <div class="flex">
+
+                <button class="bg-primary hover:bg-primary-dark w-full p-4 text-sm text-white uppercase font-bold tracking-wider">
+                    <%= gettext("Signup") %>
+                </button>
+            </div>
+        <% end %>
+
+        <div class="border-t px-10 py-6">
+            <div class="flex justify-between">
+                <a href="/login" class="font-bold text-primary hover:text-primary-dark no-underline"><%= gettext("Already have an account?") %></a>
+            </div>
+        </div>
+    </div>
+</div>

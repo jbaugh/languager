@@ -14,10 +14,14 @@
   <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
     <ul class="list-reset lg:flex justify-end flex-1 items-center">
       <li class="mr-3">
-        <%= LanguagerWeb.LayoutView.nav_link(@conn, "/cars", gettext("Car Finder")) %>
+        <%= LanguagerWeb.LayoutView.nav_link(@conn, "/about", gettext("About")) %>
       </li>
 
       <%= if logged_in?(@conn) do %>
+        <li class="mr-3">
+          <%= LanguagerWeb.LayoutView.nav_link(@conn, "/words", gettext("Words")) %>
+        </li>
+
         <li class="mr-3">
           <%= LanguagerWeb.LayoutView.nav_link(@conn, "/logout", gettext("Logout")) %>
         </li>
