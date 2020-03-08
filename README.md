@@ -37,7 +37,8 @@ npm install postcss-loader tailwindcss --save-dev
 
 
 mix phx.gen.context Accounts User users email:string:unique encrypted_password:string external_id:string:unique
-mix phx.gen.context Languages Language languages name:string
+mix phx.gen.context Languages Language languages external_id:string:unique name:string
+mix phx.gen.context Puzzles WordSearch word_searches external_id:string:unique name:string
 mix phx.gen.html Languages Course courses language_id:integer user_id:integer name:string description:string 
 mix phx.gen.html Languages Word words language_id:integer course_id:integer user_id:integer translation:string literal_translation:string pronunciation:string sound_clip:string 
 mix phx.gen.html Languages Sentence sentences language_id:integer course_id:integer word_id:integer user_id:integer translation:string literal_translation:string sound_clip:string 
