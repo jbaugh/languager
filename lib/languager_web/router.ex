@@ -17,16 +17,17 @@ defmodule LanguagerWeb.Router do
   scope "/", LanguagerWeb do
     pipe_through :browser
 
-    get "/logout", SessionController, :delete
-    get "/signout", SessionController, :delete
-    get "/login", SessionController, :new
-    get "/signin", SessionController, :new
-    resources "/sessions", SessionController, only: [:new, :create, :delete]
+    # get "/logout", SessionController, :delete
+    # get "/signout", SessionController, :delete
+    # get "/login", SessionController, :new
+    # get "/signin", SessionController, :new
+    # resources "/sessions", SessionController, only: [:new, :create, :delete]
 
-    get "/signup", SignupController, :new
-    post "/signup", SignupController, :create
+    # get "/signup", SignupController, :new
+    # post "/signup", SignupController, :create
 
-    get "/", PageController, :index
+    # get "/", PageController, :index
+    get "/*path", PageController, :index
   end
 
   # Other scopes may use custom stacks.

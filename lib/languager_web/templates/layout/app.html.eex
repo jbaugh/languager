@@ -9,19 +9,7 @@
     <%= csrf_meta_tag() %>
   </head>
   <body class="bg-white font-sans leading-normal tracking-normal">
-    <%= render "_navigation.html", conn: @conn %>
-
-    <div class="mx-auto bg-white mt-24 md:mt-18">
-      <%= render "_flash.html", conn: @conn %>      
-      <%= render @view_module, @view_template, assigns %>
-    </div>
-
+    <%= render @view_module, @view_template, assigns %>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-    <script>
-      //Javascript to toggle the menu
-      document.getElementById('nav-toggle').onclick = function(){
-        document.getElementById("nav-content").classList.toggle("hidden");
-      }
-    </script>
   </body>
 </html>
