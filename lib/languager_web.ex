@@ -28,7 +28,7 @@ defmodule LanguagerWeb do
       import LanguagerWeb.Helpers.Session
       alias LanguagerWeb.Helpers.Session
 
-      plug LanguagerWeb.Plugs.LoadCurrentUser
+      # plug LanguagerWeb.Plugs.LoadCurrentUser
     end
   end
 

@@ -2,10 +2,9 @@
 #
 #     mix run priv/repo/seeds.exs
 #
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     Languager.Repo.insert!(%Languager.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+
+IO.puts "Creating languages"
+Languager.Repo.delete_all(Languager.Languages.Language)
+Languager.Languages.create_language(%{name: "Spanish", active: true})
+Languager.Languages.create_language(%{name: "French", active: true})
+Languager.Languages.create_language(%{name: "German", active: true})

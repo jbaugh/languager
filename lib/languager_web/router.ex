@@ -14,6 +14,12 @@ defmodule LanguagerWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/api", LanguagerWeb do
+    pipe_through :api
+
+    resources "/languages", LanguageController, except: [:new, :edit]
+  end
+
   scope "/", LanguagerWeb do
     pipe_through :browser
 
@@ -29,9 +35,4 @@ defmodule LanguagerWeb.Router do
     # get "/", PageController, :index
     get "/*path", PageController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", LanguagerWeb do
-  #   pipe_through :api
-  # end
 end

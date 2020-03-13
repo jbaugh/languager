@@ -40,3 +40,6 @@ __Mix commands__
 - mix phx.gen.html Languages Course courses language_id:integer user_id:integer name:string description:string 
 - mix phx.gen.html Languages Word words language_id:integer course_id:integer user_id:integer translation:string literal_translation:string pronunciation:string sound_clip:string 
 - mix phx.gen.html Languages Sentence sentences language_id:integer course_id:integer word_id:integer user_id:integer translation:string literal_translation:string sound_clip:string 
+
+
+mix phx.gen.json Languages Language languages name:string active:boolean external_id:string --no-context --no-schema
