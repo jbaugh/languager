@@ -32,6 +32,8 @@ defmodule Languager.Accounts.User do
     field :unconfirmed_email, :string
     field :unconfirmed_phone, :string
 
+    has_many :auth_tokens, Languager.Accounts.AuthToken
+
     timestamps()
   end
 

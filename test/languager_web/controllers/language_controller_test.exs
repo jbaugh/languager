@@ -6,12 +6,10 @@ defmodule LanguagerWeb.LanguageControllerTest do
 
   @create_attrs %{
     active: true,
-    external_id: "some external_id",
     name: "some name"
   }
   @update_attrs %{
     active: false,
-    external_id: "some updated external_id",
     name: "some updated name"
   }
   @invalid_attrs %{active: nil, external_id: nil, name: nil}
@@ -42,7 +40,7 @@ defmodule LanguagerWeb.LanguageControllerTest do
       assert %{
                "id" => id,
                "active" => true,
-               "external_id" => "some external_id",
+               "external_id" => "some-name",
                "name" => "some name"
              } = json_response(conn, 200)["data"]
     end
@@ -65,7 +63,7 @@ defmodule LanguagerWeb.LanguageControllerTest do
       assert %{
                "id" => id,
                "active" => false,
-               "external_id" => "some updated external_id",
+               "external_id" => "some-updated-name",
                "name" => "some updated name"
              } = json_response(conn, 200)["data"]
     end

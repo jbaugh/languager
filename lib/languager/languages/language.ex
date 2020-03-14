@@ -15,6 +15,19 @@ defmodule Languager.Languages.Language do
     language
     |> cast(attrs, [:name, :active])
     |> validate_required([:name])
-    |> Languager.Services.Sluggify.sluggify(Languager.Languages.Language, :name)
+    |> set_external_id
+  end
+
+  @doc false
+  defp set_external_id(%{valid?: false} = changeset), do: changeset
+  defp set_external_id(changeset) do
+    name = get_field(changeset, :name)
+
+    external_id = 
+      name
+      |> String.downcase
+      |> String.replace(" ", "-")
+      |> String.replace(~r/[^0-9a-z\-]/, "")
+    put_change(changeset, :external_id, external_id)
   end
 end
