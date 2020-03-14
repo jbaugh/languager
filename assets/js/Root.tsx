@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Header from './components/Header'
 import HomePage from './pages'
 import Counter from './components/Counter'
+import FetchDataPage from './pages/fetch-data'
 
 
 export default class Root extends React.Component {
@@ -17,6 +18,7 @@ export default class Root extends React.Component {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/counter" component={ Counter } />
+            <Route path="/fetch-data" component={FetchDataPage} />'
           </Switch>
         </BrowserRouter>
       </>
