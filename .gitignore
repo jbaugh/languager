@@ -35,3 +35,4 @@ npm-debug.log
 /priv/static/
 
 config/prod.secret.exs
+config/secrets.exs
