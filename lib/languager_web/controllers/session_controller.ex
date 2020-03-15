@@ -51,7 +51,7 @@ defmodule LanguagerWeb.SessionController do
   defp verify_password(password, %User{} = user) when is_binary(password) do
     if Argon2.verify_pass(password, user.encrypted_password) do
       token = Languager.Services.Authenticator.generate_token(user.id)
-      Languager.Repo.insert(Ecto.build_assoc(user, :auth_tokens, %{token: token, token_type: Languager.Accounts.AuthToken.login_type}))
+      Languager.Repo.insert(Ecto.build_assoc(user, :auth_tokens, %{token: token}))
       {:ok, user}
     else
       {:error, :invalid_password}

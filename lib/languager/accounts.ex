@@ -37,6 +37,28 @@ defmodule Languager.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+
+  @doc """
+  Gets a single user by email.
+
+  Returns nil if the if the User does not exist.
+
+  ## Examples
+
+      iex> get_user_by_email("someemail@example.com")
+      %User{}
+
+      iex> get_user_by_email("non-existant-email@example.com")
+      ** nil
+
+  """
+  def get_user_by_email(email) do
+    (from m in User,
+    where: is_nil(m.deleted_at)
+    and m.email == ^email)
+    |> Repo.one
+  end
+
   @doc """
   Creates a user.
 

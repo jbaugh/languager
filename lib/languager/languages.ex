@@ -38,6 +38,26 @@ defmodule Languager.Languages do
   def get_language!(id), do: Repo.get!(Language, id)
 
   @doc """
+  Gets a single language by external_id.
+
+  Returns nil if the Language does not exist.
+
+  ## Examples
+
+      iex> get_language_by_external_id("spanish")
+      %User{}
+
+      iex> get_language_by_external_id("fake-language")
+      ** nil
+
+  """
+  def get_language_by_external_id(external_id) do
+    (from m in Language,
+    where: m.external_id == ^external_id)
+    |> Repo.one
+  end
+
+  @doc """
   Creates a language.
 
   ## Examples

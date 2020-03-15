@@ -18,6 +18,7 @@ __Updating__
 - mix deps.get
 - mix deps.compile
 - mix ecto.migrate
+- mix ecto.seed
 - mix phx.server
 
 
@@ -35,7 +36,7 @@ __Command Notes__
 
 __Mix commands__
 - mix phx.gen.context Accounts User users email:string:unique encrypted_password:string external_id:string:unique
-- mix phx.gen.context Accounts AuthTokens auth_tokens user_id:references:users token:string:unique token_type:string
+- mix phx.gen.context Accounts AuthTokens auth_tokens user_id:references:users token:string:unique
 - mix phx.gen.context Languages Language languages external_id:string:unique name:string
 - mix phx.gen.context Puzzles WordSearch word_searches external_id:string:unique name:string
 - mix phx.gen.html Languages Course courses language_id:integer user_id:integer name:string description:string 

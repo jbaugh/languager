@@ -57,9 +57,9 @@ defmodule Languager.AccountsTest do
   describe "auth_tokens" do
     alias Languager.Accounts.AuthToken
 
-    @valid_attrs %{token: "some token", token_type: "some token_type"}
-    @update_attrs %{token: "some updated token", token_type: "some updated token_type"}
-    @invalid_attrs %{token: nil, token_type: nil}
+    @valid_attrs %{token: "some token"}
+    @update_attrs %{token: "some updated token"}
+    @invalid_attrs %{token: nil}
 
     def auth_tokens_fixture(attrs \\ %{}) do
       {:ok, auth_tokens} =
@@ -83,7 +83,6 @@ defmodule Languager.AccountsTest do
     test "create_auth_tokens/1 with valid data creates a auth_tokens" do
       assert {:ok, %AuthToken{} = auth_tokens} = Accounts.create_auth_tokens(@valid_attrs)
       assert auth_tokens.token == "some token"
-      assert auth_tokens.token_type == "some token_type"
     end
 
     test "create_auth_tokens/1 with invalid data returns error changeset" do
@@ -94,7 +93,6 @@ defmodule Languager.AccountsTest do
       auth_tokens = auth_tokens_fixture()
       assert {:ok, %AuthToken{} = auth_tokens} = Accounts.update_auth_tokens(auth_tokens, @update_attrs)
       assert auth_tokens.token == "some updated token"
-      assert auth_tokens.token_type == "some updated token_type"
     end
 
     test "update_auth_tokens/2 with invalid data returns error changeset" do
