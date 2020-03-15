@@ -1,8 +1,6 @@
 defmodule LanguagerWeb.LanguageControllerTest do
   use LanguagerWeb.ConnCase
-
   alias Languager.Languages
-  alias Languager.Languages.Language
 
   @create_attrs %{
     active: true,
@@ -53,7 +51,7 @@ defmodule LanguagerWeb.LanguageControllerTest do
   describe "update language" do
     setup [:create_language]
 
-    test "renders language when data is valid", %{conn: conn, language: %Language{external_id: external_id} = language} do
+    test "renders language when data is valid", %{conn: conn, language: language} do
       conn = put(conn, Routes.language_path(conn, :update, language), language: @update_attrs)
       assert %{"external_id" => new_external_id} = json_response(conn, 200)["data"]
       conn = get(conn, Routes.language_path(conn, :show, new_external_id))

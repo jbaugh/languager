@@ -24,9 +24,9 @@ defmodule Languager.LanguagesTest do
       assert Languages.list_languages() == [language]
     end
 
-    test "get_language!/1 returns the language with given id" do
+    test "get_language/1 returns the language with given id" do
       language = language_fixture()
-      assert Languages.get_language!(language.id) == language
+      assert Languages.get_language(language.external_id) == {:ok, language}
     end
 
     test "create_language/1 with valid data creates a language" do
@@ -47,13 +47,13 @@ defmodule Languager.LanguagesTest do
     test "update_language/2 with invalid data returns error changeset" do
       language = language_fixture()
       assert {:error, %Ecto.Changeset{}} = Languages.update_language(language, @invalid_attrs)
-      assert language == Languages.get_language!(language.id)
+      assert {:ok, language} == Languages.get_language(language.external_id)
     end
 
     test "delete_language/1 deletes the language" do
       language = language_fixture()
       assert {:ok, %Language{}} = Languages.delete_language(language)
-      assert_raise Ecto.NoResultsError, fn -> Languages.get_language!(language.id) end
+      assert Languages.get_language(language.external_id) == {:error, :not_found}
     end
 
     test "change_language/1 returns a language changeset" do

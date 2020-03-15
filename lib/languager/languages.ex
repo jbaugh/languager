@@ -24,45 +24,21 @@ defmodule Languager.Languages do
   @doc """
   Gets a single language.
 
-  Raises `Ecto.NoResultsError` if the Language does not exist.
+  Returns {:error, :not_found} if not foiund, or {:ok, object}.
 
   ## Examples
 
-      iex> get_language!(123)
-      %Language{}
+      iex> get_language(123)
+      {:ok, %Language{}}
 
-      iex> get_language!(456)
-      ** (Ecto.NoResultsError)
+      iex> get_language(456)
+      {:error, :not_found}
 
   """
   def get_language(external_id) do
     (from m in Language,
      where: m.external_id == ^external_id)
     |> Languager.Repo.get
-  end
-
-  @doc """
-  Gets a single language by external_id.
-
-  Returns nil if the Language does not exist.
-
-  ## Examples
-
-      iex> get_language_by_external_id("spanish")
-      %User{}
-
-      iex> get_language_by_external_id("fake-language")
-      ** nil
-
-  """
-  def get_language_by_external_id(external_id) do
-    query = (from m in Language,
-             where: m.external_id == ^external_id)
-    
-    case Repo.one(query) do
-      nil -> {:error, :not_found}
-      val -> {:ok, val}
-    end
   end
 
   @doc """
