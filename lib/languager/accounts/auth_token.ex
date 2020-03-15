@@ -17,4 +17,8 @@ defmodule Languager.Accounts.AuthToken do
     |> validate_required([:token, :token_type])
     |> unique_constraint(:token)
   end
+
+  def login_type do
+    'login'
+  end
 end

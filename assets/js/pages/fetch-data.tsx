@@ -29,7 +29,7 @@ export default class FetchDataPage extends React.Component<
     this.state = { languages: [], loading: true };
 
     // Get the data from our API.
-    fetch('/api/languages')
+    fetch('/api/v1/languages')
       .then(response => response.json() as Promise<ApiResponse>)
       .then(data => {
         this.setState({ languages: data.data, loading: false });

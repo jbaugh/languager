@@ -17,7 +17,14 @@ defmodule LanguagerWeb.Router do
   scope "/api", LanguagerWeb do
     pipe_through :api
 
-    resources "/languages", LanguageController, except: [:new, :edit]
+    scope "/v1" do 
+      scope "/sessions" do
+        post "/new", SessionsController, :create
+        delete "/delete", SessionsController, :delete
+      end
+
+      resources "/languages", LanguageController, except: [:new, :edit]
+    end
   end
 
   scope "/", LanguagerWeb do
