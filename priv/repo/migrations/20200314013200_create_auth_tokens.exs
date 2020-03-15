@@ -6,6 +6,7 @@ defmodule Languager.Repo.Migrations.CreateAuthTokens do
       add :token, :string
       add :token_type, :string
       add :user_id, references(:users, on_delete: :nothing)
+      add :expires_at, :utc_datetime
 
       timestamps()
     end

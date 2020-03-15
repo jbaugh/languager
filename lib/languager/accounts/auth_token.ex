@@ -6,6 +6,7 @@ defmodule Languager.Accounts.AuthToken do
     field :token, :string
     field :token_type, :string
     field :user_id, :id
+    field :expires_at, :utc_datetime
 
     timestamps()
   end

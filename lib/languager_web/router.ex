@@ -19,8 +19,8 @@ defmodule LanguagerWeb.Router do
 
     scope "/v1" do 
       scope "/sessions" do
-        post "/new", SessionsController, :create
-        delete "/delete", SessionsController, :delete
+        post "/new", SessionController, :create
+        delete "/delete", SessionController, :delete
       end
 
       resources "/languages", LanguageController, except: [:new, :edit]

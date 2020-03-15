@@ -4,35 +4,32 @@ defmodule LanguagerWeb.SessionController do
   plug LanguagerWeb.Plugs.RequireLoggedIn when action in [:delete]
   plug LanguagerWeb.Plugs.RequireNotLoggedIn when action not in [:delete]
 
-  def new(conn, _params) do
-    render conn, "new.html"
-  end
-
   def create(conn, %{"session" => %{"password" => ""}}) do
     conn
-    |> render("new.html", error_message: gettext("Please fill in an email and password."))
+    |> send_resp(401, gettext("Please fill in an email and password."))
   end
 
   def create(conn, %{"session" => %{"email" => ""}}) do
     conn
-    |> render("new.html", error_message: gettext("Please fill in an email and password."))
+    |> send_resp(401, gettext("Please fill in an email and password."))
   end
 
   def create(conn, %{"session" => %{"email" => email, "password" => password}}) do
     case verify_credentials(email, password) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, gettext("Successfully logged in."))
-        |> login_user(user)
-        |> redirect(to: "/")
+        |> put_status(:ok)
+        |> render("show.json", user)
       {:error, _reason} ->
         conn
-        |> render("new.html", error_message: gettext("Invalid email or password."))
+        |> send_resp(401, gettext("Invalid email or password."))
     end
   end
 
   def delete(conn, _params) do
-    logout(conn)
+    Languager.Services.Authenticator.delete_token(conn)
+    conn
+    |> send_resp(204, "")
   end
 
 
