@@ -33,12 +33,11 @@ defmodule LanguagerWeb.LanguageControllerTest do
   describe "create language" do
     test "renders language when data is valid", %{conn: conn} do
       conn = post(conn, Routes.language_path(conn, :create), language: @create_attrs)
-      assert %{"id" => id} = json_response(conn, 201)["data"]
+      assert %{"external_id" => external_id} = json_response(conn, 201)["data"]
 
-      conn = get(conn, Routes.language_path(conn, :show, id))
+      conn = get(conn, Routes.language_path(conn, :show, external_id))
 
       assert %{
-               "id" => id,
                "active" => true,
                "external_id" => "some-name",
                "name" => "some name"
@@ -54,16 +53,14 @@ defmodule LanguagerWeb.LanguageControllerTest do
   describe "update language" do
     setup [:create_language]
 
-    test "renders language when data is valid", %{conn: conn, language: %Language{id: id} = language} do
+    test "renders language when data is valid", %{conn: conn, language: %Language{external_id: external_id} = language} do
       conn = put(conn, Routes.language_path(conn, :update, language), language: @update_attrs)
-      assert %{"id" => ^id} = json_response(conn, 200)["data"]
-
-      conn = get(conn, Routes.language_path(conn, :show, id))
+      assert %{"external_id" => new_external_id} = json_response(conn, 200)["data"]
+      conn = get(conn, Routes.language_path(conn, :show, new_external_id))
 
       assert %{
-               "id" => id,
                "active" => false,
-               "external_id" => "some-updated-name",
+               "external_id" => new_external_id,
                "name" => "some updated name"
              } = json_response(conn, 200)["data"]
     end
@@ -81,9 +78,8 @@ defmodule LanguagerWeb.LanguageControllerTest do
       conn = delete(conn, Routes.language_path(conn, :delete, language))
       assert response(conn, 204)
 
-      assert_error_sent 404, fn ->
-        get(conn, Routes.language_path(conn, :show, language))
-      end
+      new_conn = get(conn, Routes.language_path(conn, :show, language))
+      assert response(new_conn, 404)
     end
   end
 

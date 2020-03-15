@@ -19,24 +19,28 @@ defmodule LanguagerWeb.LanguageController do
     end
   end
 
+  # curl http://localhost:4000/api/v1/languages/1 -H "Content-Type: application/json"
   def show(conn, %{"id" => id}) do
-    language = Languages.get_language!(id)
-    render(conn, "show.json", language: language)
-  end
-
-  def update(conn, %{"id" => id, "language" => language_params}) do
-    language = Languages.get_language!(id)
-
-    with {:ok, %Language{} = language} <- Languages.update_language(language, language_params) do
+    with {:ok, language} <- Languages.get_language(id) do
       render(conn, "show.json", language: language)
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    language = Languages.get_language!(id)
+  def update(conn, %{"id" => id, "language" => language_params}) do
+    with {:ok, language} <- Languages.get_language(id) do
+      with {:ok, %Language{} = language} <- Languages.update_language(language, language_params) do
+        render(conn, "show.json", language: language)
+      end
+    end
+  end
 
-    with {:ok, %Language{}} <- Languages.delete_language(language) do
-      send_resp(conn, :no_content, "")
+  def delete(conn, %{"id" => id}) do
+    with {:ok, language} <- Languages.get_language(id) do
+      with {:ok, %Language{}} <- Languages.delete_language(language) do
+        conn
+        |> put_status(204)
+        |> render("show.json", language: language)
+      end
     end
   end
 end

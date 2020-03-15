@@ -2,6 +2,7 @@ defmodule Languager.Languages.Language do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Phoenix.Param, key: :external_id}
   schema "languages" do
     field :name, :string
     field :active, :boolean, default: true

@@ -6,14 +6,8 @@ defmodule LanguagerWeb.SessionController do
 
 
   # curl http://localhost:4000/api/v1/sessions/signin -H "Content-Type: application/json" -d '{ "email":"test@example.com", "password": "123123" }' -X POST
-  def create(conn, %{"password" => ""}) do
-    conn
-    |> send_resp(401, gettext("Please fill in an email and password."))
-  end
-  def create(conn, %{"email" => ""}) do
-    conn
-    |> send_resp(401, gettext("Please fill in an email and password."))
-  end
+  def create(conn, %{"email" => ""}), do: missing_fields(conn)
+  def create(conn, %{"password" => ""}), do: missing_fields(conn)
   def create(conn, %{"email" => email, "password" => password}) do
     case verify_credentials(email, password) do
       {:ok, user, token} ->
@@ -22,8 +16,17 @@ defmodule LanguagerWeb.SessionController do
         |> render("show.json", %{user: user, token: token})
       {:error, _reason} ->
         conn
-        |> send_resp(401, gettext("Invalid email or password."))
+        |> put_status(401)
+        |> put_view(LanguagerWeb.ErrorView)
+        |> render("error.json", %{message: gettext("Invalid email or password.")})
     end
+  end
+  def create(conn, _params), do: missing_fields(conn)
+  defp missing_fields(conn) do
+    conn
+    |> put_status(401)
+    |> put_view(LanguagerWeb.ErrorView)
+    |> render("error.json", %{message: gettext("Please fill in an email and password.")})
   end
 
   def delete(conn, _params) do

@@ -17,13 +17,13 @@ defmodule LanguagerWeb.FallbackController do
     conn
     |> put_status(:unauthorized)
     |> put_view(LanguagerWeb.ErrorView)
-    |> render("auth_required.json")
+    |> render("error.json", %{message: gettext("You are not authorized to access this")})
   end
 
   def call(conn, {:error, :not_found}) do
     conn
     |> put_status(:not_found)
     |> put_view(LanguagerWeb.ErrorView)
-    |> render(:"404")
+    |> render("error.json", %{message: gettext("Not found")})
   end
 end

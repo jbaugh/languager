@@ -35,7 +35,11 @@ defmodule Languager.Languages do
       ** (Ecto.NoResultsError)
 
   """
-  def get_language!(id), do: Repo.get!(Language, id)
+  def get_language(external_id) do
+    (from m in Language,
+     where: m.external_id == ^external_id)
+    |> Languager.Repo.get
+  end
 
   @doc """
   Gets a single language by external_id.
@@ -52,9 +56,13 @@ defmodule Languager.Languages do
 
   """
   def get_language_by_external_id(external_id) do
-    (from m in Language,
-    where: m.external_id == ^external_id)
-    |> Repo.one
+    query = (from m in Language,
+             where: m.external_id == ^external_id)
+    
+    case Repo.one(query) do
+      nil -> {:error, :not_found}
+      val -> {:ok, val}
+    end
   end
 
   @doc """
