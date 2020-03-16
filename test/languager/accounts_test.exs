@@ -54,62 +54,62 @@ defmodule Languager.AccountsTest do
     end
   end
 
-  describe "auth_tokens" do
+  describe "auth_token" do
     alias Languager.Accounts.AuthToken
 
     @valid_attrs %{token: "some token"}
     @update_attrs %{token: "some updated token"}
     @invalid_attrs %{token: nil}
 
-    def auth_tokens_fixture(attrs \\ %{}) do
-      {:ok, auth_tokens} =
+    def auth_token_fixture(attrs \\ %{}) do
+      {:ok, auth_token} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> Accounts.create_auth_tokens()
+        |> Accounts.create_auth_token()
 
-      auth_tokens
+      auth_token
     end
 
-    test "list_auth_tokens/0 returns all auth_tokens" do
-      auth_tokens = auth_tokens_fixture()
-      assert Accounts.list_auth_tokens() == [auth_tokens]
+    test "list_auth_tokens/0 returns all auth_token" do
+      auth_token = auth_token_fixture()
+      assert Accounts.list_auth_tokens() == [auth_token]
     end
 
-    test "get_auth_tokens!/1 returns the auth_tokens with given id" do
-      auth_tokens = auth_tokens_fixture()
-      assert Accounts.get_auth_tokens!(auth_tokens.id) == auth_tokens
+    test "get_auth_token/1 returns the auth_token with given id" do
+      auth_token = auth_token_fixture()
+      assert Accounts.get_auth_token(auth_token.token) == {:ok, auth_token}
     end
 
-    test "create_auth_tokens/1 with valid data creates a auth_tokens" do
-      assert {:ok, %AuthToken{} = auth_tokens} = Accounts.create_auth_tokens(@valid_attrs)
-      assert auth_tokens.token == "some token"
+    test "create_auth_token/1 with valid data creates a auth_token" do
+      assert {:ok, %AuthToken{} = auth_token} = Accounts.create_auth_token(@valid_attrs)
+      assert auth_token.token == "some token"
     end
 
-    test "create_auth_tokens/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Accounts.create_auth_tokens(@invalid_attrs)
+    test "create_auth_token/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_auth_token(@invalid_attrs)
     end
 
-    test "update_auth_tokens/2 with valid data updates the auth_tokens" do
-      auth_tokens = auth_tokens_fixture()
-      assert {:ok, %AuthToken{} = auth_tokens} = Accounts.update_auth_tokens(auth_tokens, @update_attrs)
-      assert auth_tokens.token == "some updated token"
+    test "update_auth_token/2 with valid data updates the auth_token" do
+      auth_token = auth_token_fixture()
+      assert {:ok, %AuthToken{} = auth_token} = Accounts.update_auth_token(auth_token, @update_attrs)
+      assert auth_token.token == "some updated token"
     end
 
-    test "update_auth_tokens/2 with invalid data returns error changeset" do
-      auth_tokens = auth_tokens_fixture()
-      assert {:error, %Ecto.Changeset{}} = Accounts.update_auth_tokens(auth_tokens, @invalid_attrs)
-      assert auth_tokens == Accounts.get_auth_tokens!(auth_tokens.id)
+    test "update_auth_token/2 with invalid data returns error changeset" do
+      auth_token = auth_token_fixture()
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_auth_token(auth_token, @invalid_attrs)
+      assert {:ok, auth_token} == Accounts.get_auth_token(auth_token.token)
     end
 
-    test "delete_auth_tokens/1 deletes the auth_tokens" do
-      auth_tokens = auth_tokens_fixture()
-      assert {:ok, %AuthToken{}} = Accounts.delete_auth_tokens(auth_tokens)
-      assert_raise Ecto.NoResultsError, fn -> Accounts.get_auth_tokens!(auth_tokens.id) end
+    test "delete_auth_token/1 deletes the auth_token" do
+      auth_token = auth_token_fixture()
+      assert {:ok, %AuthToken{}} = Accounts.delete_auth_token(auth_token)
+      assert Accounts.get_auth_token(auth_token.token) == {:error, :not_found}
     end
 
-    test "change_auth_tokens/1 returns a auth_tokens changeset" do
-      auth_tokens = auth_tokens_fixture()
-      assert %Ecto.Changeset{} = Accounts.change_auth_tokens(auth_tokens)
+    test "change_auth_token/1 returns a auth_token changeset" do
+      auth_token = auth_token_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_auth_token(auth_token)
     end
   end
 end

@@ -140,83 +140,87 @@ defmodule Languager.Accounts do
   end
 
   @doc """
-  Gets a single auth_tokens.
+  Gets a single auth_token.
 
-  Raises `Ecto.NoResultsError` if the Auth tokens does not exist.
+  Returns nil if the Auth tokens does not exist.
 
   ## Examples
 
-      iex> get_auth_tokens!(123)
+      iex> get_auth_token("token")
       %AuthToken{}
 
-      iex> get_auth_tokens!(456)
-      ** (Ecto.NoResultsError)
+      iex> get_auth_token("another-token")
+      nil
 
   """
-  def get_auth_tokens!(id), do: Repo.get!(AuthToken, id)
+  def get_auth_token(token) do
+    (from m in AuthToken,
+     where: m.token == ^token)
+    |> Languager.Repo.get
+  end
 
   @doc """
-  Creates a auth_tokens.
+  Creates a auth_token.
 
   ## Examples
 
-      iex> create_auth_tokens(%{field: value})
+      iex> create_auth_token(%{field: value})
       {:ok, %AuthToken{}}
 
-      iex> create_auth_tokens(%{field: bad_value})
+      iex> create_auth_token(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_auth_tokens(attrs \\ %{}) do
+  def create_auth_token(attrs \\ %{}) do
     %AuthToken{}
     |> AuthToken.changeset(attrs)
     |> Repo.insert()
   end
 
   @doc """
-  Updates a auth_tokens.
+  Updates a auth_token.
 
   ## Examples
 
-      iex> update_auth_tokens(auth_tokens, %{field: new_value})
+      iex> update_auth_token(auth_token, %{field: new_value})
       {:ok, %AuthToken{}}
 
-      iex> update_auth_tokens(auth_tokens, %{field: bad_value})
+      iex> update_auth_token(auth_token, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_auth_tokens(%AuthToken{} = auth_tokens, attrs) do
-    auth_tokens
+  def update_auth_token(%AuthToken{} = auth_token, attrs) do
+    auth_token
     |> AuthToken.changeset(attrs)
     |> Repo.update()
   end
 
   @doc """
-  Deletes a auth_tokens.
+  Deletes a auth_token.
 
   ## Examples
 
-      iex> delete_auth_tokens(auth_tokens)
+      iex> delete_auth_token(auth_token)
       {:ok, %AuthToken{}}
 
-      iex> delete_auth_tokens(auth_tokens)
+      iex> delete_auth_token(auth_token)
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_auth_tokens(%AuthToken{} = auth_tokens) do
-    Repo.delete(auth_tokens)
+  def delete_auth_token(%AuthToken{} = auth_token) do
+    Repo.delete(auth_token)
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking auth_tokens changes.
+  Returns an `%Ecto.Changeset{}` for tracking auth_token changes.
 
   ## Examples
 
-      iex> change_auth_tokens(auth_tokens)
+      iex> change_auth_token(auth_token)
       %Ecto.Changeset{source: %AuthToken{}}
 
   """
-  def change_auth_tokens(%AuthToken{} = auth_tokens) do
-    AuthToken.changeset(auth_tokens, %{})
+  def change_auth_token(%AuthToken{} = auth_token) do
+    AuthToken.changeset(auth_token, %{})
   end
 end

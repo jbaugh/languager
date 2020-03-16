@@ -12,9 +12,13 @@ defmodule LanguagerWeb.Plugs.LoadCurrentUser do
   end
 
   defp load_current_user(conn) do
-    id = Plug.Conn.get_session(conn, :user_id)
-    if id do
-      Languager.Repo.get(Languager.Accounts.User, id) # |> Maintenance.Repo.preload(:account)
+    case Languager.Services.Authenticator.get_auth_token(conn) do
+      {:ok, token} ->
+        case Languager.Accounts.get_auth_token(token) |> Repo.preload(:user) do
+          nil -> nil
+          auth_token -> auth_token.user
+        end
+      _ -> nil
     end
   end
 end
