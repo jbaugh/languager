@@ -8,19 +8,21 @@ defmodule LanguagerWeb.Plugs.RequireAdmin do
 
   def call(conn, _default) do
     Logger.info "IN RequireAdmin"
-    case Plug.Conn.get_session(conn, :current_user) do
+    case conn.assigns[:current_user] do
       nil ->
         conn
-        |> put_flash(:error, gettext("You need to be logged in."))
-        |> redirect(to: "/login")
+        |> put_status(:not_found)
+        |> put_view(LanguagerWeb.ErrorView)
+        |> render("error.json", %{message: gettext("Not found")})
         |> halt
       user ->
         if user.access_level > 999 do
           conn
         else
           conn
-          |> put_flash(:error, gettext("Not found."))
-          |> redirect(to: "/")
+          |> put_status(:not_found)
+          |> put_view(LanguagerWeb.ErrorView)
+          |> render("error.json", %{message: gettext("Not found")})
           |> halt
         end
     end

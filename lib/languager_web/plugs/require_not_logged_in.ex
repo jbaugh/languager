@@ -1,17 +1,14 @@
 defmodule LanguagerWeb.Plugs.RequireNotLoggedIn do
   import Plug.Conn
-  import Phoenix.Controller
 
   def init(default), do: default
 
   def call(conn, _default) do
-    case Plug.Conn.get_session(conn, :user_id) do
+    case conn.assigns[:current_user] do
       nil ->
         conn
       _user ->
-        conn
-        |> redirect(to: "/dashboard")
-        |> halt
+        conn |> send_resp(302, "/") |> halt()
     end
   end
 end

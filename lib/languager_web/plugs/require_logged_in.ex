@@ -8,11 +8,12 @@ defmodule LanguagerWeb.Plugs.RequireLoggedIn do
 
   def call(conn, _default) do
     Logger.info "IN RequireLoggedIn"
-    case Plug.Conn.get_session(conn, :user_id) do
+    case conn.assigns[:current_user] do
       nil ->
         conn
-        |> put_flash(:error, gettext("You need to be logged in."))
-        |> redirect(to: "/login")
+        |> put_status(:unauthorized)
+        |> put_view(LanguagerWeb.ErrorView)
+        |> render("error.json", %{message: gettext("You are not authorized to access this")})
         |> halt
       _user_id ->
         conn
